@@ -24,7 +24,7 @@ class fishController {
         description: req.body.description,
         place: req.body.place,
         c_time: req.body.c_time,
-        image: req.body.filename,
+        image: req.file.filename,
         user_Id: req.user.id
     })
     res.status(201).json({
