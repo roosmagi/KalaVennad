@@ -17,8 +17,8 @@ app.get("/", (req, res) => {
 });
 
 app.use(authRoutes);
-
 app.use(fishRoutes);
+app.use('/uploads', express.static('uploads'));
 
 sequelize
   .sync()

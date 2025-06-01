@@ -4,8 +4,9 @@ const API_URL = 'http://localhost:3002';
 
 const token = () => localStorage.getItem('token');
 
-export const getAllFishes = () => {
-  return axios.get(`${API_URL}/fishes`);
+export const getAllFishes = async () => {
+  const response = await axios.get('http://localhost:3002/fishes');
+  return response.data; 
 };
 
 export const getFishById = (id) => {
