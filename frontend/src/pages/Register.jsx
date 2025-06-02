@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { register } from '../api/auth';
 import { Link } from 'react-router-dom'; 
-
+import './Auth.css';
 
 export default function Register() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
@@ -22,7 +22,8 @@ export default function Register() {
   };
 
   return (
-    <div>
+    <div className="form-container">
+    <div className="form-box">
       <h2>Registreeru</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="name" placeholder="Nimi" onChange={handleChange} required />
@@ -31,7 +32,8 @@ export default function Register() {
         <button type="submit">Registreeri</button>
       </form>
       <p>Juba konto olemas? <Link to="/login">Logi sisse</Link></p>
-      <p>{message}</p>
+      <p className="auth-message">{message}</p>
     </div>
+  </div>
   );
 }

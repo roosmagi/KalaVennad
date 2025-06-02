@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getAllFishes } from '../api/fish';
+import './Home.css';
 
 function Home() {
   const [fishes, setFishes] = useState([]);
@@ -23,17 +24,18 @@ function Home() {
   }, []);
 
   return (
-    <div>
+    <div className="home-container">
       <h2>Kalad</h2>
       {loading && <p>Laen kalu...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
-        {fishes.map(fish => (
-          <div key={fish.id} style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '10px' }}>
+      {error && <p className="error-msg">{error}</p>}
+
+      <div className="fish-grid">
+        {fishes.map((fish) => (
+          <div key={fish.id} className="fish-card">
             <img
               src={`http://localhost:3002/uploads/${fish.image}`}
               alt={fish.name}
-              style={{ width: '100%', maxHeight: '200px', objectFit: 'cover' }}
+              className="fish-image"
             />
             <h3>{fish.name}</h3>
             <p><strong>Kirjeldus:</strong> {fish.description}</p>

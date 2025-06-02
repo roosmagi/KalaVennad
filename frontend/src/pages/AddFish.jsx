@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { addFish } from '../api/fish';
 import { useNavigate } from 'react-router-dom';
+import './AddFish.css';
 
 function AddFish() {
   const [form, setForm] = useState({
@@ -67,9 +68,9 @@ function AddFish() {
   };
 
   return (
-    <div>
-      <h2>Lisa kala</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+    <div className="addfish-container">
+      <h2>Lisa uus kala</h2>
+      <form onSubmit={handleSubmit} className="addfish-form" encType="multipart/form-data">
         <input
           type="text"
           name="name"
@@ -78,7 +79,6 @@ function AddFish() {
           onChange={handleChange}
           required
         />
-        <br />
         <textarea
           name="description"
           placeholder="Kirjeldus"
@@ -86,7 +86,6 @@ function AddFish() {
           onChange={handleChange}
           required
         />
-        <br />
         <input
           type="text"
           name="place"
@@ -94,7 +93,6 @@ function AddFish() {
           value={form.place}
           onChange={handleChange}
         />
-        <br />
         <input
           type="datetime-local"
           name="c_time"
@@ -102,30 +100,14 @@ function AddFish() {
           onChange={handleChange}
           required
         />
-        <br />
-
-        {/* Lohistamisala */}
         <div
+          className={`dropzone ${dragActive ? 'active' : ''}`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          style={{
-            border: '2px dashed #aaa',
-            padding: '20px',
-            margin: '10px 0',
-            backgroundColor: dragActive ? '#f0f0f0' : '#fff',
-          }}
         >
-          <p>
-            {form.image ? (
-              <strong>Fail valitud: {form.image.name}</strong>
-            ) : (
-              'Lohista siia pilt või vali all nupuga'
-            )}
-          </p>
+          <p>{form.image ? `Fail valitud: ${form.image.name}` : 'Lohista siia pilt või vali fail'}</p>
         </div>
-
-        {/* Varjatud input failivalikuks */}
         <input
           type="file"
           name="image"
@@ -133,13 +115,10 @@ function AddFish() {
           onChange={handleChange}
           required={!form.image}
         />
-
-        <br />
         <button type="submit">Lisa kala</button>
       </form>
-
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>{success}</p>}
+      {error && <p className="error-msg">{error}</p>}
+      {success && <p className="success-msg">{success}</p>}
     </div>
   );
 }

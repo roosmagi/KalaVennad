@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { login } from '../api/auth';
 import { Link } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import './Auth.css';
 
 export default function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
   const [token, setToken] = useState('');
+  const navigate = useNavigate();
+  
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -16,6 +20,7 @@ export default function Login() {
     try {
       const res = await login(form);
       setToken(res.data.token);
+      navigate('/');
       setMessage('Sisselogimine õnnestus');
       localStorage.setItem('token', res.data.token);
     } catch (err) {
@@ -24,16 +29,17 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Logi sisse</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="email" name="email" placeholder="E-post" onChange={handleChange} required />
-        <input type="password" name="password" placeholder="Parool" onChange={handleChange} required />
-        <button type="submit">Logi sisse</button>
-      </form>
-      <p>Ei ole veel kontot? <Link to="/register">Loo konto</Link></p>
-      <p>{message}</p>
-      {token && <p>Token: {token}</p>}
+    <div className="form-container">
+      <div className="form-box">
+        <h2>Logi sisse</h2>
+        <form onSubmit={handleSubmit}>
+          <input type="email" name="email" placeholder="E-post" onChange={handleChange} required />
+          <input type="password" name="password" placeholder="Parool" onChange={handleChange} required />
+          <button type="submit">Logi sisse</button>
+        </form>
+        <p>Ei ole veel kontot? <Link to="/register">Loo konto</Link></p>
+        <p className="auth-message">{message}</p>
+      </div>
     </div>
   );
 }
